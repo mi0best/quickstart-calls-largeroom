@@ -113,7 +113,7 @@ const GroupCallMain = () => {
   const [showRoomCreated, setShowRoomCreated] = useState(false);
 
   const { callees } = storage.getItem('sbCalls') || [];
-  const isAudioRoom = callees.length > 5;
+  const isAudioRoom = true;
 
   useEffect(() => {
     const room = rooms[rooms.length - 1];
