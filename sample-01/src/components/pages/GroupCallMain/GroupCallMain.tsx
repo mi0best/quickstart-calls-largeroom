@@ -176,7 +176,7 @@ const GroupCallMain = () => {
         // const audioElement = document.getElementById(
         //   'remote_audio_tag',
         // ) as HTMLAudioElement | null;
-        const audioElement = document.getElementById('remote_audio_tag');
+        const audioElement = document.getElementById('remote_audio_tag') as HTMLAudioElement;
         isAudioRoom && audioElement && room.setAudioForLargeRoom(audioElement);
         return room
           .enter({

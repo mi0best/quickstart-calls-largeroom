@@ -105,6 +105,7 @@ export const statefyRoom = (
     participants: statefulParticipants,
     localParticipant: statefulLocalParticipants[0],
     remoteParticipants: statefulRemoteParticipants,
+    setAudioForLargeRoom: room.setAudioForLargeRoom,
     enter(params) {
       return room.enter(params).then(() => {
         updateRoom();
