@@ -80,6 +80,7 @@ export interface StatefulRoom extends Pick<
   | 'createdBy'
   | 'enter'
   | 'exit'
+  | 'setAudioForLargeRoom'
   > {
   participants: StatefulParticipant[];
   localParticipant: StatefulLocalParticipant;
