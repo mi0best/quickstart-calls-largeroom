@@ -112,9 +112,6 @@ const GroupCallMain = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showRoomCreated, setShowRoomCreated] = useState(false);
 
-  const { callees } = storage.getItem('sbCalls') || [];
-  const isAudioRoom = true;
-
   useEffect(() => {
     const room = rooms[rooms.length - 1];
   }, [rooms]);
@@ -135,8 +132,8 @@ const GroupCallMain = () => {
 
       if (skipDialog) {
         room.enter({
-          audioEnabled: false,
-          videoEnabled: !isAudioRoom,
+          audioEnabled: true,
+          videoEnabled: true,
         }).catch(error => {
           toast.error(<ErrorMessage message={error.message} />, { autoClose: 2000 });
         })
@@ -166,38 +163,20 @@ const GroupCallMain = () => {
     //   })
 
     // For the large room
-    sbCalls
-      .createRoom({
-        roomType: isAudioRoom
-          ? sbCalls.RoomType.LARGE_ROOM_FOR_AUDIO_ONLY
-          : sbCalls.RoomType.SMALL_ROOM_FOR_VIDEO,
-      })
-      .then(room => {
-        // const audioElement = document.getElementById(
-        //   'remote_audio_tag',
-        // ) as HTMLAudioElement | null;
-        const audioElement = document.getElementById('remote_audio_tag') as HTMLAudioElement;
-        isAudioRoom && audioElement && room.setAudioForLargeRoom(audioElement);
-        return room
-          .enter({
-            audioEnabled: false,
-            videoEnabled: !isAudioRoom,
-          })
+    sbCalls.createRoom({ roomType: sbCalls.RoomType.LARGE_ROOM_FOR_AUDIO_ONLY })
+      .then(async (room: any) => {
+        const audioElement: any = document.getElementById('remote_audio_tag') as HTMLAudioElement;
+        await room.setAudioForLargeRoom(audioElement);
+        return room.enter({
+          audioEnabled: true,
+          videoEnabled: true,
+        })
           .then(() => {
-            // sendPostMessage(
-            //   JSON.stringify({
-            //     type: postMessageType.created,
-            //     room: {
-            //       roomId: room.roomId,
-            //       roomType: room.roomType,
-            //       createdAt: room.createdAt,
-            //       createdBy: room.createdBy,
-            //     },
-            //   }),
-            // );
+            setShowRoomCreated(true);
           });
       })
       .catch(e => {
+        debugger;
         toast.error(<ErrorMessage message={e.message} />, { autoClose: 2000 });
       })
   }, [sbCalls]);
@@ -246,7 +225,7 @@ const GroupCallMain = () => {
             />
           </Overlay>
         }
-        {isAudioRoom && <audio id="remote_audio_tag" autoPlay />}
+        {<audio id="remote_audio_tag" autoPlay />}
       </Content>
     </Wrapper>
   )
