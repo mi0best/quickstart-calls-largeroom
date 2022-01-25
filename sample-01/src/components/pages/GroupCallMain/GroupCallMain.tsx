@@ -147,12 +147,12 @@ const GroupCallMain = () => {
   }, [sbCalls])
 
   const createRoom = useCallback(() => {
-    // For the small room 
     // sbCalls.createRoom({ roomType: sbCalls.RoomType.SMALL_ROOM_FOR_VIDEO })
     //   .then(room => {
+    //     console.log(room);
     //     return room.enter({
-    //       audioEnabled: true,
-    //       videoEnabled: true,
+    //       audioEnabled: false,
+    //       videoEnabled: false,
     //     });
     //   })
     //   .then(() => {
@@ -164,22 +164,19 @@ const GroupCallMain = () => {
 
     // For the large room
     sbCalls.createRoom({ roomType: sbCalls.RoomType.LARGE_ROOM_FOR_AUDIO_ONLY })
-      .then(async (room: any) => {
-        const audioElement: any = document.getElementById('remote_audio_tag') as HTMLAudioElement;
-        await room.setAudioForLargeRoom(audioElement);
-        return room.enter({
-          audioEnabled: true,
-          videoEnabled: true,
-        })
-          .then(() => {
-            setShowRoomCreated(true);
-          });
+    .then(async room => {
+      await room.enter({
+        audioEnabled: true,
+        videoEnabled: false,
       })
-      .catch(e => {
-        debugger;
-        toast.error(<ErrorMessage message={e.message} />, { autoClose: 2000 });
-      })
-  }, [sbCalls]);
+    })
+    .then(() => {
+      setShowRoomCreated(true);
+    })
+    .catch(e => {
+      toast.error(<ErrorMessage message={e.message} />, { autoClose: 2000 });
+    })
+    }, [sbCalls]);
 
   // console.log(rooms);
   console.log(JSON.stringify(rooms[rooms.length - 1], null, 4));

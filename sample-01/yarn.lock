@@ -10029,10 +10029,10 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
-sendbird-calls@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.npmjs.org/sendbird-calls/-/sendbird-calls-1.6.0.tgz"
-  integrity sha512-WmglEUp2GUFNTGskWTlkK6gz/z5VDV7RIxchoc0u91cs0TwN782qtXbIABSGQmaJZCSbRPBvsQFvkS5rjvowwQ==
+sendbird-calls@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/sendbird-calls/-/sendbird-calls-1.9.0.tgz#9d85826dbf44e87c8642ea63804b4351fac8517d"
+  integrity sha512-DLwRxCnmxMHErLlM+6LbNwN4Rscsyxhv3osHr7+ziRq8/2PsnFvf9YqSRyI7X434QygtbZgtsiVuwoTtvLeYdA==
 
 serialize-javascript@^4.0.0:
   version "4.0.0"

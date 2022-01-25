@@ -132,6 +132,10 @@ const MediaContent = ({ room }: Props) => {
     const p = localParticipant;
     return (
       <Wrapper>
+        <audio autoPlay playsInline ref={el => {
+          if (!el) return;
+          room.setAudioForLargeRoom(el);
+        }} />
         <ParticipantView key={p.participantId} rows={1} width={windowDimensions.width} height={windowDimensions.height}>
           <video autoPlay playsInline muted={p.participantId === localParticipant.participantId} ref={el => {
             if (!el) return;
@@ -153,6 +157,10 @@ const MediaContent = ({ room }: Props) => {
   const rows = Math.ceil(participants.length / 2);
   return (
     <Wrapper>
+      <audio autoPlay playsInline ref={el => {
+        if (!el) return;
+        room.setAudioForLargeRoom(el);
+      }} />
       {Array(rows).fill(0).map((x, i) => {
         const p1 = participants[i * 2];
         const p2 = participants[i * 2 + 1];

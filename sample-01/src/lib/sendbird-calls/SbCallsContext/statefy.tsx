@@ -105,7 +105,6 @@ export const statefyRoom = (
     participants: statefulParticipants,
     localParticipant: statefulLocalParticipants[0],
     remoteParticipants: statefulRemoteParticipants,
-    setAudioForLargeRoom: room.setAudioForLargeRoom,
     enter(params) {
       return room.enter(params).then(() => {
         updateRoom();
@@ -116,6 +115,11 @@ export const statefyRoom = (
       room.exit();
       updateRoom();
     },
+    setAudioForLargeRoom(mediaView: HTMLAudioElement) {
+      return room.setAudioForLargeRoom(mediaView).then(() => {
+        return;
+      });
+    }
   };
 };
 
