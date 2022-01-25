@@ -147,21 +147,24 @@ const GroupCallMain = () => {
   }, [sbCalls])
 
   const createRoom = useCallback(() => {
-    // sbCalls.createRoom({ roomType: sbCalls.RoomType.SMALL_ROOM_FOR_VIDEO })
-    //   .then(room => {
-    //     console.log(room);
-    //     return room.enter({
-    //       audioEnabled: false,
-    //       videoEnabled: false,
-    //     });
-    //   })
-    //   .then(() => {
-    //     setShowRoomCreated(true);
-    //   })
-    //   .catch(e => {
-    //     toast.error(<ErrorMessage message={e.message} />, { autoClose: 2000 });
-    //   })
+    sbCalls.createRoom({ roomType: sbCalls.RoomType.SMALL_ROOM_FOR_VIDEO })
+      .then(room => {
+        console.log(room);
+        return room.enter({
+          audioEnabled: false,
+          videoEnabled: false,
+        });
+      })
+      .then(() => {
+        setShowRoomCreated(true);
+      })
+      .catch(e => {
+        toast.error(<ErrorMessage message={e.message} />, { autoClose: 2000 });
+      })
 
+  }, [sbCalls]);
+
+  const createLargeRoom = useCallback(() => {
     // For the large room
     sbCalls.createRoom({ roomType: sbCalls.RoomType.LARGE_ROOM_FOR_AUDIO_ONLY })
       .then(async room => {
@@ -178,7 +181,7 @@ const GroupCallMain = () => {
       .catch(e => {
         toast.error(<ErrorMessage message={e.message} />, { autoClose: 2000 });
       })
-  }, [sbCalls]);
+  }, [sbCalls])
 
   // console.log(rooms);
   console.log(JSON.stringify(rooms[rooms.length - 1], null, 4));
@@ -194,9 +197,15 @@ const GroupCallMain = () => {
         <Boxes>
           <FormBox>
             <FormBoxIcon src="/icons/ic-add-room.svg" />
-            <FormBoxTitle>Create a room</FormBoxTitle>
-            <FormBoxDescription>Start a group call in a room and share the room ID with others.</FormBoxDescription>
+            <FormBoxTitle>Create a small room</FormBoxTitle>
+            <FormBoxDescription>Start a group call in a small room and share the room ID with others.</FormBoxDescription>
             <FormButton primary size="mid" onClick={() => { createRoom() }}>Create</FormButton>
+          </FormBox>
+          <FormBox>
+            <FormBoxIcon src="/icons/ic-add-room.svg" />
+            <FormBoxTitle>Create a large room</FormBoxTitle>
+            <FormBoxDescription>Start a group call in a large room and share the room ID with others.</FormBoxDescription>
+            <FormButton primary size="mid" onClick={() => { createLargeRoom() }}>Create</FormButton>
           </FormBox>
           <FormBox>
             <FormBoxIcon src="/icons/icon-join.svg" />
