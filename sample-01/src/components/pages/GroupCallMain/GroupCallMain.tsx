@@ -164,19 +164,21 @@ const GroupCallMain = () => {
 
     // For the large room
     sbCalls.createRoom({ roomType: sbCalls.RoomType.LARGE_ROOM_FOR_AUDIO_ONLY })
-    .then(async room => {
-      await room.enter({
-        audioEnabled: true,
-        videoEnabled: false,
+      .then(async room => {
+        await room.enter({
+          audioEnabled: true,
+          videoEnabled: false,
+        })
+        const audioElement = document.getElementById('remote_audio_tag') as HTMLAudioElement;
+        room.setAudioForLargeRoom(audioElement)
       })
-    })
-    .then(() => {
-      setShowRoomCreated(true);
-    })
-    .catch(e => {
-      toast.error(<ErrorMessage message={e.message} />, { autoClose: 2000 });
-    })
-    }, [sbCalls]);
+      .then(() => {
+        setShowRoomCreated(true);
+      })
+      .catch(e => {
+        toast.error(<ErrorMessage message={e.message} />, { autoClose: 2000 });
+      })
+  }, [sbCalls]);
 
   // console.log(rooms);
   console.log(JSON.stringify(rooms[rooms.length - 1], null, 4));

@@ -124,27 +124,27 @@ const MediaContent = ({ room }: Props) => {
 
   console.log(
     JSON.stringify(
-    participants.map(x => ({ id: x.participantId, audio: x.isAudioEnabled }))
-      ,null,4)
+      participants.map(x => ({ id: x.participantId, audio: x.isAudioEnabled }))
+      , null, 4)
   )
 
   if (!remoteParticipants.length) {
     const p = localParticipant;
     return (
       <Wrapper>
-        <audio autoPlay playsInline ref={el => {
+        {/* <audio autoPlay playsInline ref={el => {
           if (!el) return;
           room.setAudioForLargeRoom(el);
-        }} />
+        }} /> */}
         <ParticipantView key={p.participantId} rows={1} width={windowDimensions.width} height={windowDimensions.height}>
           <video autoPlay playsInline muted={p.participantId === localParticipant.participantId} ref={el => {
             if (!el) return;
             p.setMediaView(el);
           }} />
           {p.isVideoEnabled ||
-          <ParticipantOverlay>
-            <Avatar url={p.user.profileUrl} />
-          </ParticipantOverlay>
+            <ParticipantOverlay>
+              <Avatar url={p.user.profileUrl} />
+            </ParticipantOverlay>
           }
           <ParticipantInfo>
             {p.isAudioEnabled || <ParticipantMutedIcon />}User ID: {p.user.userId}
@@ -157,10 +157,10 @@ const MediaContent = ({ room }: Props) => {
   const rows = Math.ceil(participants.length / 2);
   return (
     <Wrapper>
-      <audio autoPlay playsInline ref={el => {
+      {/* <audio autoPlay playsInline ref={el => {
         if (!el) return;
         room.setAudioForLargeRoom(el);
-      }} />
+      }} /> */}
       {Array(rows).fill(0).map((x, i) => {
         const p1 = participants[i * 2];
         const p2 = participants[i * 2 + 1];
@@ -175,9 +175,9 @@ const MediaContent = ({ room }: Props) => {
                     p.setMediaView(el);
                   }} />
                   {p.isVideoEnabled ||
-                  <ParticipantOverlay>
-                    <Avatar url={p.user.profileUrl} />
-                  </ParticipantOverlay>
+                    <ParticipantOverlay>
+                      <Avatar url={p.user.profileUrl} />
+                    </ParticipantOverlay>
                   }
                   <ParticipantInfo>
                     {p.isAudioEnabled || <ParticipantMutedIcon />}User ID: {p.user.userId}
